@@ -77,6 +77,8 @@ map <C-K> <C-W>k<C-W>_
 " Allows splits to reduce their size to a single line (which includes the filename and position)
 set wmh=0
 
+" Pressing F2 turns off line number, list and foldcolumn for easy copying. press again to toggle them back on (save foldcolumn, which stays off)
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>:set list!<CR>
 
 " highlight lines over 79 chars long
 "highlight OverLength ctermbg=darkblue guibg=#592929
@@ -86,6 +88,10 @@ set wmh=0
 " remap ` to ' and vice versa
 nnoremap ' `
 nnoremap ` '
+
+" CTRL+\ for viewing tags in new window
+map <C-\> :sp<CR><C-]><C-w>_
+
 
 
 " fix meta-keys which generate <Esc>a .. <Esc>z " doesn't work well
