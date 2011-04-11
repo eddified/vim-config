@@ -38,6 +38,10 @@ set showcmd     " display incomplete commands
 
 " eddie manually added
 
+
+" set colorscheme to default
+colorscheme default
+
 :syn on
 "highlight Comment ctermfg=blue " default is darkblue, but it's too hard to see
 
