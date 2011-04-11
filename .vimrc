@@ -1,0 +1,98 @@
+" An example for a vimrc file.
+"
+" Maintainer:   Bram Moolenaar <Bram@vim.org>
+" Last change:  2002 Sep 19
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"         for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"       for OpenVMS:  sys$login:.vimrc
+
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+  finish
+endif
+
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+set tabstop=2
+set shiftwidth=2
+
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+"if has("vms")
+"  set nobackup     " do not keep a backup file, use versions instead
+"else
+"  set nobackup     " keep a backup file
+"endif
+
+set showcmd     " display incomplete commands
+
+
+
+
+" eddie manually added
+
+:syn on
+"highlight Comment ctermfg=blue " default is darkblue, but it's too hard to see
+
+set expandtab shiftwidth=4 ts=4 autoindent
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+
+set history=200     " keep this many lines of command line history
+set ruler       " show the cursor position all the time
+set list
+set incsearch
+set hlsearch
+set wildmode=longest,list
+set laststatus=2
+set number
+"set scrolloff=2
+
+" Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" purpose: to write a file that i don't have perms to write
+" to use-- :SudoW
+command! -bar -nargs=0 SudoW :silent exe "write !sudo tee % >/dev/null" | silent edit!
+
+" Allow you to switch between splits much more smoothly --
+" just press <C-J>  to open and maximize the split below the current one and
+" <C-K> to open and maximize the split above the current one.
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+
+" Allows splits to reduce their size to a single line (which includes the filename and position)
+set wmh=0
+
+
+" highlight lines over 79 chars long
+"highlight OverLength ctermbg=darkblue guibg=#592929
+"match OverLength /\%80v.\+/ " first window
+" autocmd WinEnter match OverLength /\%80v.\+/ " subsequent windows " can't get this to work
+
+" remap ` to ' and vice versa
+nnoremap ' `
+nnoremap ` '
+
+
+" fix meta-keys which generate <Esc>a .. <Esc>z " doesn't work well
+"let c='a'
+"while c <= 'z'
+"  exec "set <M-".toupper(c).">=\e".c
+"  exec "imap \e".c." <M-".toupper(c).">"
+"  let c = nr2char(1+char2nr(c))
+"endw
+
+" allow CTRL+H to insert a carriage return after end of line
+nnoremap <C-H> A<CR><Esc>k$
+
+
