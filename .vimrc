@@ -45,7 +45,8 @@ colorscheme default
 :syn on
 "highlight Comment ctermfg=blue " default is darkblue, but it's too hard to see
 
-set expandtab shiftwidth=4 ts=4 autoindent
+set expandtab shiftwidth=4 ts=4 softtabstop=4 autoindent
+let python_highlight_space_errors = 0
 
 " When opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on. Useful for READMEs, etc.
