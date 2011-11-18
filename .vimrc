@@ -38,6 +38,12 @@ set showcmd     " display incomplete commands
 
 " eddie manually added
 
+" whether to ignore case in searches, qualified by smartcase setting
+set noignorecase
+" whether to ignore case in searches if entire search pattern is lowercase,
+" don't ignore case otherwise.
+set nosmartcase
+
 
 " set colorscheme to default
 colorscheme default
@@ -46,7 +52,13 @@ colorscheme default
 "highlight Comment ctermfg=blue " default is darkblue, but it's too hard to see
 
 set expandtab shiftwidth=4 ts=4 softtabstop=4 autoindent
+
+" for a certain python plugin
 let python_highlight_space_errors = 0
+
+" when 'gq' is used to format text, this is how wide it will be formatted to
+set textwidth=130
+set formatoptions=tcqr
 
 " When opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on. Useful for READMEs, etc.
@@ -91,7 +103,7 @@ nnoremap ' `
 nnoremap ` '
 
 " CTRL+\ for viewing tags in new window
-map <C-\> :sp<CR><C-]><C-w>_
+"map <C-\> :sp<CR><C-]><C-w>_
 
 
 
@@ -106,4 +118,32 @@ map <C-\> :sp<CR><C-]><C-w>_
 " allow CTRL+H to insert a carriage return after end of line
 nnoremap <C-H> A<CR><Esc>k$
 
+"set statusline=[%n]\ %f\ %(\(%MMODIFIED%M%R%H)%)\ Pos=<l=%l\,c=%c%V,b=%o>\ %P\ ASCII=%b\ HEX=%B
 
+" fold xml files by syntax .. to use folding column, :set fdc=1
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
+command! Pyflakes :call Pyflakes()
+function! Pyflakes()
+    setlocal makeprg=pyflakes
+    setlocal efm="%f:%l"
+    make "%"
+    cwindow
+endfunction
+
+command! Pylint :call Pylint()
+function! Pylint()
+    setlocal makeprg=(echo\ '[%]';\ pylint\ %)
+    setlocal efm=%+P[%f],%t:\ %#%l:%m
+    make
+    cwindow
+endfunction
+
+command! Pep8 :call Pep8()
+function! Pep8()
+    setlocal makeprg=../../externals/pep8.py
+    setlocal efm="%f:%l:%c"
+    make "%"
+    cwindow
+endfunction
