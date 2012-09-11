@@ -48,6 +48,9 @@ colorscheme default
 "highlight Comment ctermfg=blue " default is darkblue, but it's too hard to see
 
 
+" Tab settings
+set shiftwidth=4 ts=4 softtabstop=4 autoindent noexpandtab
+
 " When opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on. Useful for READMEs, etc.
 set autoindent
@@ -112,3 +115,10 @@ nnoremap <C-H> A<CR><Esc>k$
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 
+
+" enable vim to load filetype-specific plugins
+filetype plugin on
+filetype indent on
+
+" use ctags file TAGS
+set tags=TAGS
