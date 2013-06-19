@@ -84,6 +84,9 @@ set wmh=0
 " Pressing F2 turns off line number, list and foldcolumn for easy copying. press again to toggle them back on (save foldcolumn, which stays off)
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>:set list!<CR>
 
+" Press F3 to toggle paste mode
+nnoremap <F3> :set paste!<CR>:set paste?<CR>
+
 " highlight lines over 79 chars long
 "highlight OverLength ctermbg=darkblue guibg=#592929
 "match OverLength /\%80v.\+/ " first window
