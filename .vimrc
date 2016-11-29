@@ -1,3 +1,7 @@
+" http://rtlechow.com/2008/12/15/256-colors-in-vim-inside-screen-in-an-iterm-on-os-x-leopard/
+" "apparently “set t_Co=256” must appear before any syntax and color settings"
+set t_Co=256
+
 " An example for a vimrc file.
 "
 " Maintainer:   Bram Moolenaar <Bram@vim.org>
@@ -47,6 +51,13 @@ colorscheme default
 :syn on
 "highlight Comment ctermfg=blue " default is darkblue, but it's too hard to see
 
+" fix search highlight
+hi Search cterm=reverse term=NONE ctermfg=11 ctermbg=NONE
+
+" use pathogen plugin ( https://github.com/tpope/vim-pathogen )
+" which is requird for syntastic and jedi-vim
+" https://github.com/scrooloose/syntastic )
+execute pathogen#infect()
 
 " Tab settings
 set shiftwidth=4 ts=4 softtabstop=4 autoindent noexpandtab
@@ -79,7 +90,8 @@ map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 
 " Allows splits to reduce their size to a single line (which includes the filename and position)
-set wmh=0
+set winminheight=0
+set noequalalways " :help equalalways
 
 " Pressing F2 turns off line number, list and foldcolumn for easy copying. press again to toggle them back on (save foldcolumn, which stays off)
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>:set list!<CR>
@@ -91,6 +103,8 @@ nnoremap <F3> :set paste!<CR>:set paste?<CR>
 "highlight OverLength ctermbg=darkblue guibg=#592929
 "match OverLength /\%80v.\+/ " first window
 " autocmd WinEnter match OverLength /\%80v.\+/ " subsequent windows " can't get this to work
+"
+" autocmd FileType python compiler pylint -- make pylint the default 'compiler' for python (compile via make)
 
 " remap ` to ' and vice versa
 nnoremap ' `
@@ -110,6 +124,10 @@ nnoremap ` '
 "endw
 
 " allow CTRL+H to insert a carriage return after end of line
+"nnoremap <C-H> A<CR><Esc>k$
+
+" press CTRL+H for prev tab, CTRL+L for next tab
+map <C-H> :tabp<cr>
 nnoremap <C-H> A<CR><Esc>k$
 
 "set statusline=[%n]\ %f\ %(\(%MMODIFIED%M%R%H)%)\ Pos=<l=%l\,c=%c%V,b=%o>\ %P\ ASCII=%b\ HEX=%B
@@ -125,3 +143,16 @@ filetype indent on
 
 " use ctags file TAGS
 set tags=TAGS
+
+
+" syntastic options
+let g:syntastic_aggregate_errors = 1 " when 1, all checkers that apply are run in turn, and all errors found are aggregated in a single list
+let g:syntastic_check_on_wq = 0 " when 0, don't run checkers on file write - doesn't seem to work
+
+let g:syntastic_mode_map = { "mode": "passive" }
+let g:syntastic_always_populate_loc_list = 1 " Enable this option to tell syntastic to always stick any detected errors into the location-list
+let g:syntastic_auto_loc_list = 1 " When set to 1 the error window will be automatically opened when errors are detected, and closed when none are detected
+
+
+set mouse=n " enable mouse
+set ttymouse=xterm2 " needed for full mouse capability when inside tmux
