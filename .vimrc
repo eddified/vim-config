@@ -93,8 +93,8 @@ map <C-K> <C-W>k<C-W>_
 set winminheight=0
 set noequalalways " :help equalalways
 
-" Pressing F2 turns off line number, list and foldcolumn for easy copying. press again to toggle them back on (save foldcolumn, which stays off)
-nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>:set list!<CR>
+" Pressing F2 turns off line number, list, foldcolumn, and ttymouse for easy copying. Press again to toggle them back on (save foldcolumn, which stays off)
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>:set list!<CR>:exec &ttymouse!=""? "set ttymouse=" : "set ttymouse=xterm2"<CR>
 
 " Press F3 to toggle paste mode
 nnoremap <F3> :set paste!<CR>:set paste?<CR>
